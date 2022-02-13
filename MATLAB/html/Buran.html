@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Buran Mission Game, version 2.0.</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-01-25"><meta name="DC.source" content="Buran.m"><style type="text/css">
+      --><title>Buran Mission Game, version 2.0.</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-02-13"><meta name="DC.source" content="Buran.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -70,11 +70,11 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   Three techniques of a space aircraft control can be obviously compared
   and estimated with the program developed: time-optimal control,
   machine learning based control and manual control. Time-optimal
-  control synthesis bases ob the dynamic system condition detailed
+  control synthesis bases on the dynamic system condition detailed
   analysis. The machine learning based control is implemented by dynamic
   system response to random impact monitoring only. Manual control is
   implemented using keyboard.</pre><pre>  Author: Sarazova E.M.
-  Github: https://github.com</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1"><b>General functions.</b></a></li><li><a href="#2"><tt>Buran() function.</tt></a></li><li><a href="#4"><i>Creating of variables.</i></a></li><li><a href="#5"><i>Invoke of initialisation functions.</i></a></li><li><a href="#6"><i>The main cycle.</i></a></li><li><a href="#7"><tt>initVariables() function.</tt></a></li><li><a href="#8"><tt>initWindows() function.</tt></a></li><li><a href="#10"><i>Showing main window.</i></a></li><li><a href="#11"><i>Report window.</i></a></li><li><a href="#13"><tt>GammaLines() function.</tt></a></li><li><a href="#14"><tt>Control_System() function.</tt></a></li><li><a href="#15"><tt>BuranUpdate() function.</tt></a></li><li><a href="#16"><tt>ODESolve() function.</tt></a></li><li><a href="#17"><b>Initialization of function wrappers.</b></a></li><li><a href="#18"><i>Verssion&gt;=2018.</i></a></li><li><a href="#19"><i>Verssion&lt;2018.</i></a></li><li><a href="#20"><tt>initFunctions() functions.</tt></a></li><li><a href="#21"><b>Callbacks.</b></a></li><li><a href="#22"><tt>stl_KeyPressFcn() function.</tt></a></li><li><a href="#23"><tt>stl_CloseReqFcn() function</tt></a></li><li><a href="#24"><tt>stl_CloseReportReqFcn() function</tt></a></li><li><a href="#25"><tt>stl_ResizeFcn() function.</tt></a></li><li><a href="#26"><b>Custom functions.</b></a></li><li><a href="#27"><tt>RandomView() function.</tt></a></li><li><a href="#28"><tt>Resize() function.</tt></a></li><li><a href="#29"><tt>PrintReport() function.</tt></a></li><li><a href="#30"><tt>Auto_Ufcn() function.</tt></a></li><li><a href="#31"><tt>Manual_Ufcn() function.</tt></a></li><li><a href="#32"><tt>NeuralNet_Ufcn() function.</tt></a></li><li><a href="#33"><b>Neural net functions.</b></a></li><li><a href="#34"><tt>SOFTMAX() function.</tt></a></li><li><a href="#35"><tt>ELU() function.</tt></a></li></ul></div><h2 id="1"><b>General functions.</b></h2><h2 id="2"><tt>Buran() function.</tt></h2><p>Algorithm:</p><div><ol><li>Creating of variables.</li><li>Initialization of variables.</li><li>Initialization of windows.</li><li>Initialization of wrappers.</li><li>Main cycle.</li></ol></div><pre class="codeinput"><span class="keyword">function</span> Buran(varargin)
+  Github: https://github.com/NikaSar/The_Thesis</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1"><b>General functions.</b></a></li><li><a href="#2"><tt>Buran() function.</tt></a></li><li><a href="#4"><i>Creating of variables.</i></a></li><li><a href="#5"><i>Invoke of initialisation functions.</i></a></li><li><a href="#6"><i>The main cycle.</i></a></li><li><a href="#7"><tt>initVariables() function.</tt></a></li><li><a href="#8"><tt>initWindows() function.</tt></a></li><li><a href="#10"><i>Showing main window.</i></a></li><li><a href="#11"><i>Report window.</i></a></li><li><a href="#13"><tt>GammaLines() function.</tt></a></li><li><a href="#14"><tt>Control_System() function.</tt></a></li><li><a href="#15"><tt>BuranUpdate() function.</tt></a></li><li><a href="#16"><tt>ODESolve() function.</tt></a></li><li><a href="#17"><b>Initialization of function wrappers.</b></a></li><li><a href="#18"><i>Version&gt;=2018.</i></a></li><li><a href="#19"><i>Version&lt;2018.</i></a></li><li><a href="#20"><tt>initFunctions() functions.</tt></a></li><li><a href="#21"><b>Callbacks.</b></a></li><li><a href="#22"><tt>stl_KeyPressFcn() function.</tt></a></li><li><a href="#23"><tt>stl_CloseReqFcn() function</tt></a></li><li><a href="#24"><tt>stl_CloseReportReqFcn() function</tt></a></li><li><a href="#25"><tt>stl_ResizeFcn() function.</tt></a></li><li><a href="#26"><b>Custom functions.</b></a></li><li><a href="#27"><tt>RandomView() function.</tt></a></li><li><a href="#28"><tt>Resize() function.</tt></a></li><li><a href="#29"><tt>PrintReport() function.</tt></a></li><li><a href="#30"><tt>Auto_Ufcn() function.</tt></a></li><li><a href="#31"><tt>Manual_Ufcn() function.</tt></a></li><li><a href="#32"><tt>NeuralNet_Ufcn() function.</tt></a></li><li><a href="#33"><b>Neural net functions.</b></a></li><li><a href="#34"><tt>SOFTMAX() function.</tt></a></li><li><a href="#35"><tt>ELU() function.</tt></a></li></ul></div><h2 id="1"><b>General functions.</b></h2><h2 id="2"><tt>Buran() function.</tt></h2><p>Algorithm:</p><div><ol><li>Creating of variables.</li><li>Initialization of variables.</li><li>Initialization of windows.</li><li>Initialization of wrappers.</li><li>Main cycle.</li></ol></div><pre class="codeinput"><span class="keyword">function</span> Buran(varargin)
 </pre><pre class="codeinput">clc;                        <span class="comment">% Clear command window.</span>
 clearvars <span class="string">-except</span> <span class="string">varargin</span>; <span class="comment">% Clear variables from memory (except varargin).</span>
 close <span class="string">all</span>;                  <span class="comment">% Close all figures.</span>
@@ -120,10 +120,10 @@ ReportSbptHdl4  = []; <span class="comment">% Handle of subplot for ReportAxesHd
 ReportSbptHdl5  = []; <span class="comment">% Handle of subplot for ReportAxesHdl5.</span>
 
 <span class="comment">% Arrows.</span>
-ArrowsHdl1 = []; <span class="comment">% Handle of up_array.</span>
-ArrowsHdl2 = []; <span class="comment">% Handle of left_array.</span>
-ArrowsHdl3 = []; <span class="comment">% Handle of down_array.</span>
-ArrowsHdl4 = []; <span class="comment">% Handle of right_array.</span>
+ArrowsHdl1 = []; <span class="comment">% Handle of up_arrow.</span>
+ArrowsHdl2 = []; <span class="comment">% Handle of left_arrow.</span>
+ArrowsHdl3 = []; <span class="comment">% Handle of down_arrow.</span>
+ArrowsHdl4 = []; <span class="comment">% Handle of right_arrow.</span>
 
 <span class="comment">% Plot Lines.</span>
 ReportLineUHdl1 = []; <span class="comment">% Handle of user control on phase axes.</span>
@@ -280,7 +280,7 @@ loop = 1;
         DeltaTime = curTime - OldTime; <span class="comment">% New dtime.</span>
         OldTime = curTime;             <span class="comment">% Saving current time.</span>
 
-        <span class="comment">% Update of Earth.</span>
+        <span class="comment">% Update of the Earth.</span>
         Alpha = ECoeff*DeltaTime;                 <span class="comment">% Half the angle for a quaternion.</span>
         Quaternion = [cos(Alpha) sin(Alpha) 0 0]; <span class="comment">% A quaternion.</span>
         YZ = [XEarth(:) YEarth(:) ZEarth(:)];     <span class="comment">% Flatten the array.</span>
@@ -289,7 +289,7 @@ loop = 1;
         ZEarth = reshape(YZ(:, 3),size(ZEarth));  <span class="comment">% Reshape of Y.</span>
         set(EarthSpriteHdl, <span class="string">'XData'</span>, XEarth+320, <span class="string">'YData'</span>, YEarth-800, <span class="string">'ZData'</span>, ZEarth);
 
-        <span class="comment">% Update of Space.</span>
+        <span class="comment">% Update of the Space.</span>
         YShift = -YSpace + mod(SCoeff*curTime, YSpace);
         set(MainCanvasHdl,<span class="string">'YData'</span>, YShift);
 
@@ -398,7 +398,7 @@ loop = 1;
                 set(ArrowsHdl4, <span class="string">'Color'</span>, <span class="string">'g'</span>);
             <span class="keyword">end</span>
         <span class="keyword">end</span>
-        <span class="keyword">if</span> GAME.STATUS == isGameOver <span class="comment">% Finishing round.</span>
+        <span class="keyword">if</span> GAME.STATUS == isGameOver <span class="comment">% Finished round.</span>
             OverGameTime = OverGameTime + DeltaTime; <span class="comment">% Update game over time.</span>
 
             <span class="comment">% Block for visual stabilization.</span>
@@ -847,13 +847,6 @@ loop = 1;
         <span class="comment">% Initialization of third plot.</span>
         ReportLineUHdl3 = plot(ReportSbptHdl3, 0, 0, <span class="string">'Color'</span>,<span class="string">'r'</span>);
         ReportLineBHdl3 = plot(ReportSbptHdl3, 0, 0, <span class="string">'Color'</span>,<span class="string">'g'</span>);
-
-<span class="comment">%         % Initialization of fourth plot.</span>
-<span class="comment">%         ReportLineUHdl4 = plot(ReportSbptHdl4, 0, 0, 'Color','r', 'LineStyle', 'none', 'Marker', 'o');</span>
-<span class="comment">%         ReportLineBHdl4 = plot(ReportSbptHdl4, 0, 0, 'Color','g', 'LineStyle', 'none', 'Marker', 'o');</span>
-<span class="comment">%         % Initialization of fifth plot.</span>
-<span class="comment">%         ReportLineUHdl5 = plot(ReportSbptHdl5, 0, 0, 'Color','r', 'LineStyle', 'none', 'Marker', 'o');</span>
-<span class="comment">%         ReportLineBHdl5 = plot(ReportSbptHdl5, 0, 0, 'Color','g', 'LineStyle', 'none', 'Marker', 'o');</span>
         <span class="comment">% Initialization of fourth plot.</span>
         ReportLineUHdl4 = plot(ReportSbptHdl4, 0, 0, <span class="string">'Color'</span>,<span class="string">'r'</span>);
         ReportLineBHdl4 = plot(ReportSbptHdl4, 0, 0, <span class="string">'Color'</span>,<span class="string">'g'</span>);
@@ -861,28 +854,8 @@ loop = 1;
         ReportLineUHdl5 = plot(ReportSbptHdl5, 0, 0, <span class="string">'Color'</span>,<span class="string">'r'</span>);
         ReportLineBHdl5 = plot(ReportSbptHdl5, 0, 0, <span class="string">'Color'</span>,<span class="string">'g'</span>);
 
-<span class="comment">%         % Legends.</span>
-<span class="comment">%         ReportLegendHDL1 = legend(ReportSbptHdl1, 'Player', 'Yuri Gagarin');</span>
-<span class="comment">%         ReportLegendHDL2 = legend(ReportSbptHdl2, 'Player', 'Yuri Gagarin');</span>
-<span class="comment">%         ReportLegendHDL3 = legend(ReportSbptHdl3, 'Player', 'Yuri Gagarin');</span>
-<span class="comment">%         ReportLegendHDL4 = legend(ReportSbptHdl4, 'Player', 'Yuri Gagarin');</span>
-<span class="comment">%         ReportLegendHDL5 = legend(ReportSbptHdl5, 'Player', 'Yuri Gagarin');</span>
-<span class="comment">%</span>
-<span class="comment">%         % Customization for legends.</span>
-<span class="comment">%         if ~verLessThan('matlab', '9.5.0.944444')</span>
-<span class="comment">%             set(ReportLegendHDL1, 'AutoUpdate', 'off');</span>
-<span class="comment">%             set(ReportLegendHDL2, 'AutoUpdate', 'off');</span>
-<span class="comment">%             set(ReportLegendHDL3, 'AutoUpdate', 'off');</span>
-<span class="comment">%             set(ReportLegendHDL4, 'AutoUpdate', 'off');</span>
-<span class="comment">%             set(ReportLegendHDL5, 'AutoUpdate', 'off');</span>
-<span class="comment">%         end</span>
-<span class="comment">%</span>
-<span class="comment">%         % For optimization.</span>
-<span class="comment">%         delete(ReportLegendHDL1);</span>
-<span class="comment">%         delete(ReportLegendHDL2);</span>
-<span class="comment">%         delete(ReportLegendHDL3);</span>
-<span class="comment">%         delete(ReportLegendHDL4);</span>
-<span class="comment">%         delete(ReportLegendHDL5);</span>
+        <span class="comment">% Legend objects will be initialized when the Report window</span>
+        <span class="comment">% is activated (for speed purposes).</span>
 </pre><pre class="codeinput">    <span class="keyword">end</span>
 </pre><h2 id="13"><tt>GammaLines() function.</tt></h2><p>Gamma lines print.</p><pre class="codeinput">    <span class="keyword">function</span> GammaLines
         WCount = W*(sqrt(sum(RESULT(1, 2:3).^2))+1); <span class="comment">% ~Switching count.</span>
@@ -959,7 +932,7 @@ loop = 1;
         <span class="comment">% Control by user, optimal control.</span>
         RESULT(RESULT_k, 6:9) = sign(y(end, 5:8));
     <span class="keyword">end</span>
-</pre><h2 id="17"><b>Initialization of function wrappers.</b></h2><p>Function wrappers for various version of MATLAB.</p><h2 id="18"><i>Verssion&gt;=2018.</i></h2><pre class="codeinput"><span class="comment">% Update of LineHdl.</span>
+</pre><h2 id="17"><b>Initialization of function wrappers.</b></h2><p>Function wrappers for various version of MATLAB.</p><h2 id="18"><i>Version&gt;=2018.</i></h2><pre class="codeinput"><span class="comment">% Update of LineHdl.</span>
     <span class="keyword">function</span> NewLineUpdate(k)
         addpoints(LineHdl, RESULT(k,2)*W, RESULT(k,3)*W);
     <span class="keyword">end</span>
@@ -984,7 +957,7 @@ loop = 1;
         drawnow <span class="string">expose</span>; <span class="comment">% WARNING!</span>
         pause(0.004);   <span class="comment">% WARNING!</span>
     <span class="keyword">end</span>
-</pre><h2 id="19"><i>Verssion&lt;2018.</i></h2><pre class="codeinput"><span class="comment">% Update of LineHdl.</span>
+</pre><h2 id="19"><i>Version&lt;2018.</i></h2><pre class="codeinput"><span class="comment">% Update of LineHdl.</span>
     <span class="keyword">function</span> OldLineUpdate(k)
         point_num=max(1, k-99);
         set(LineHdl, <span class="string">'XData'</span>, RESULT(point_num:k,2)*W, <span class="string">'YData'</span>,RESULT(point_num:k,3)*W);
@@ -1228,18 +1201,15 @@ loop = 1;
 </pre><h2 id="29"><tt>PrintReport() function.</tt></h2><p>Comparison of the player's solution and the optimal solution.</p><pre class="codeinput">    <span class="keyword">function</span> PrintReport
         set(ReportFigureHdl, <span class="string">'Visible'</span>, <span class="string">'on'</span>); <span class="comment">% Show report window.</span>
 
+        <span class="comment">% It is correct to do the initialization of the Legend objects</span>
+        <span class="comment">% here, as it is more optimal in terms of performance.</span>
+
         <span class="comment">% Update of legends.</span>
         ReportLegendHDL1 = legend(ReportSbptHdl1, <span class="string">'Player'</span>, <span class="string">'Yuri Gagarin'</span>);
         ReportLegendHDL2 = legend(ReportSbptHdl2, <span class="string">'Player'</span>, <span class="string">'Yuri Gagarin'</span>);
         ReportLegendHDL3 = legend(ReportSbptHdl3, <span class="string">'Player'</span>, <span class="string">'Yuri Gagarin'</span>);
         ReportLegendHDL4 = legend(ReportSbptHdl4, <span class="string">'Player'</span>, <span class="string">'Yuri Gagarin'</span>);
         ReportLegendHDL5 = legend(ReportSbptHdl5, <span class="string">'Player'</span>, <span class="string">'Yuri Gagarin'</span>);
-
-<span class="comment">%         ReportLegendHDL1 = legend(ReportSbptHdl1, 'Neural Net', 'Optimal Control');</span>
-<span class="comment">%         ReportLegendHDL2 = legend(ReportSbptHdl2, 'Neural Net', 'Optimal Control');</span>
-<span class="comment">%         ReportLegendHDL3 = legend(ReportSbptHdl3, 'Neural Net', 'Optimal Control');</span>
-<span class="comment">%         ReportLegendHDL4 = legend(ReportSbptHdl4, 'Neural Net', 'Optimal Control');</span>
-<span class="comment">%         ReportLegendHDL5 = legend(ReportSbptHdl5, 'Neural Net', 'Optimal Control');</span>
 
         <span class="comment">% Customization for legends.</span>
         <span class="keyword">if</span> ~verLessThan(<span class="string">'matlab'</span>, <span class="string">'9.5.0.944444'</span>)
@@ -1339,13 +1309,13 @@ loop = 1;
 %    Three techniques of a space aircraft control can be obviously compared
 %    and estimated with the program developed: time-optimal control,
 %    machine learning based control and manual control. Time-optimal
-%    control synthesis bases ob the dynamic system condition detailed
+%    control synthesis bases on the dynamic system condition detailed
 %    analysis. The machine learning based control is implemented by dynamic
 %    system response to random impact monitoring only. Manual control is
 %    implemented using keyboard.
 %
 %    Author: Sarazova E.M.
-%    Github: https://github.com
+%    Github: https://github.com/NikaSar/The_Thesis
 %
 
 
@@ -1408,10 +1378,10 @@ ReportSbptHdl4  = []; % Handle of subplot for ReportAxesHdl4.
 ReportSbptHdl5  = []; % Handle of subplot for ReportAxesHdl5.
 
 % Arrows.
-ArrowsHdl1 = []; % Handle of up_array.
-ArrowsHdl2 = []; % Handle of left_array.
-ArrowsHdl3 = []; % Handle of down_array.
-ArrowsHdl4 = []; % Handle of right_array.
+ArrowsHdl1 = []; % Handle of up_arrow.
+ArrowsHdl2 = []; % Handle of left_arrow.
+ArrowsHdl3 = []; % Handle of down_arrow.
+ArrowsHdl4 = []; % Handle of right_arrow.
 
 % Plot Lines.
 ReportLineUHdl1 = []; % Handle of user control on phase axes.
@@ -1578,7 +1548,7 @@ while loop
         DeltaTime = curTime - OldTime; % New dtime.
         OldTime = curTime;             % Saving current time.
 
-        % Update of Earth.
+        % Update of the Earth.
         Alpha = ECoeff*DeltaTime;                 % Half the angle for a quaternion.
         Quaternion = [cos(Alpha) sin(Alpha) 0 0]; % A quaternion.
         YZ = [XEarth(:) YEarth(:) ZEarth(:)];     % Flatten the array.
@@ -1587,7 +1557,7 @@ while loop
         ZEarth = reshape(YZ(:, 3),size(ZEarth));  % Reshape of Y.
         set(EarthSpriteHdl, 'XData', XEarth+320, 'YData', YEarth-800, 'ZData', ZEarth);         
 	
-        % Update of Space.
+        % Update of the Space.
         YShift = -YSpace + mod(SCoeff*curTime, YSpace);
         set(MainCanvasHdl,'YData', YShift);
         
@@ -1696,7 +1666,7 @@ while loop
                 set(ArrowsHdl4, 'Color', 'g');                
             end
         end
-        if GAME.STATUS == isGameOver % Finishing round.
+        if GAME.STATUS == isGameOver % Finished round.
             OverGameTime = OverGameTime + DeltaTime; % Update game over time.
 
             % Block for visual stabilization.
@@ -2156,43 +2126,15 @@ end
         % Initialization of third plot.
         ReportLineUHdl3 = plot(ReportSbptHdl3, 0, 0, 'Color','r');
         ReportLineBHdl3 = plot(ReportSbptHdl3, 0, 0, 'Color','g');
-        
-%         % Initialization of fourth plot.
-%         ReportLineUHdl4 = plot(ReportSbptHdl4, 0, 0, 'Color','r', 'LineStyle', 'none', 'Marker', 'o');
-%         ReportLineBHdl4 = plot(ReportSbptHdl4, 0, 0, 'Color','g', 'LineStyle', 'none', 'Marker', 'o');
-%         % Initialization of fifth plot.
-%         ReportLineUHdl5 = plot(ReportSbptHdl5, 0, 0, 'Color','r', 'LineStyle', 'none', 'Marker', 'o');
-%         ReportLineBHdl5 = plot(ReportSbptHdl5, 0, 0, 'Color','g', 'LineStyle', 'none', 'Marker', 'o');
         % Initialization of fourth plot.
         ReportLineUHdl4 = plot(ReportSbptHdl4, 0, 0, 'Color','r');
         ReportLineBHdl4 = plot(ReportSbptHdl4, 0, 0, 'Color','g');
         % Initialization of fifth plot.
         ReportLineUHdl5 = plot(ReportSbptHdl5, 0, 0, 'Color','r');
         ReportLineBHdl5 = plot(ReportSbptHdl5, 0, 0, 'Color','g');
-
-%         % Legends.
-%         ReportLegendHDL1 = legend(ReportSbptHdl1, 'Player', 'Yuri Gagarin');      
-%         ReportLegendHDL2 = legend(ReportSbptHdl2, 'Player', 'Yuri Gagarin');
-%         ReportLegendHDL3 = legend(ReportSbptHdl3, 'Player', 'Yuri Gagarin');
-%         ReportLegendHDL4 = legend(ReportSbptHdl4, 'Player', 'Yuri Gagarin');
-%         ReportLegendHDL5 = legend(ReportSbptHdl5, 'Player', 'Yuri Gagarin');  
-%         
-%         % Customization for legends.
-%         if ~verLessThan('matlab', '9.5.0.944444')
-%             set(ReportLegendHDL1, 'AutoUpdate', 'off');
-%             set(ReportLegendHDL2, 'AutoUpdate', 'off');
-%             set(ReportLegendHDL3, 'AutoUpdate', 'off');
-%             set(ReportLegendHDL4, 'AutoUpdate', 'off');
-%             set(ReportLegendHDL5, 'AutoUpdate', 'off');
-%         end
-% 
-%         % For optimization.
-%         delete(ReportLegendHDL1);
-%         delete(ReportLegendHDL2);
-%         delete(ReportLegendHDL3);
-%         delete(ReportLegendHDL4);
-%         delete(ReportLegendHDL5);
-       
+        
+        % Legend objects will be initialized when the Report window
+        % is activated (for speed purposes).
     end
 
 %% |GammaLines() function.|
@@ -2285,7 +2227,7 @@ end
 %% *Initialization of function wrappers.*
 % Function wrappers for various version of MATLAB.
 
-%% _Verssion>=2018._
+%% _Version>=2018._
 
 % Update of LineHdl.
     function NewLineUpdate(k)
@@ -2313,7 +2255,7 @@ end
         pause(0.004);   % WARNING!
     end
 
-%% _Verssion<2018._
+%% _Version<2018._
 
 % Update of LineHdl.
     function OldLineUpdate(k)
@@ -2585,18 +2527,15 @@ end
     function PrintReport
         set(ReportFigureHdl, 'Visible', 'on'); % Show report window.
         
+        % It is correct to do the initialization of the Legend objects
+        % here, as it is more optimal in terms of performance.
+        
         % Update of legends.
         ReportLegendHDL1 = legend(ReportSbptHdl1, 'Player', 'Yuri Gagarin');      
         ReportLegendHDL2 = legend(ReportSbptHdl2, 'Player', 'Yuri Gagarin');
         ReportLegendHDL3 = legend(ReportSbptHdl3, 'Player', 'Yuri Gagarin');
         ReportLegendHDL4 = legend(ReportSbptHdl4, 'Player', 'Yuri Gagarin');
         ReportLegendHDL5 = legend(ReportSbptHdl5, 'Player', 'Yuri Gagarin');
-
-%         ReportLegendHDL1 = legend(ReportSbptHdl1, 'Neural Net', 'Optimal Control');
-%         ReportLegendHDL2 = legend(ReportSbptHdl2, 'Neural Net', 'Optimal Control');
-%         ReportLegendHDL3 = legend(ReportSbptHdl3, 'Neural Net', 'Optimal Control');
-%         ReportLegendHDL4 = legend(ReportSbptHdl4, 'Neural Net', 'Optimal Control');
-%         ReportLegendHDL5 = legend(ReportSbptHdl5, 'Neural Net', 'Optimal Control');
 
         % Customization for legends.
         if ~verLessThan('matlab', '9.5.0.944444')

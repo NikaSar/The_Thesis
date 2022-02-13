@@ -3,13 +3,13 @@
 %    Three techniques of a space aircraft control can be obviously compared
 %    and estimated with the program developed: time-optimal control,
 %    machine learning based control and manual control. Time-optimal
-%    control synthesis bases ob the dynamic system condition detailed
+%    control synthesis bases on the dynamic system condition detailed
 %    analysis. The machine learning based control is implemented by dynamic
 %    system response to random impact monitoring only. Manual control is
 %    implemented using keyboard.
 %
 %    Author: Sarazova E.M.
-%    Github: https://github.com
+%    Github: https://github.com/NikaSar/The_Thesis
 %
 
 
@@ -72,10 +72,10 @@ ReportSbptHdl4  = []; % Handle of subplot for ReportAxesHdl4.
 ReportSbptHdl5  = []; % Handle of subplot for ReportAxesHdl5.
 
 % Arrows.
-ArrowsHdl1 = []; % Handle of up_array.
-ArrowsHdl2 = []; % Handle of left_array.
-ArrowsHdl3 = []; % Handle of down_array.
-ArrowsHdl4 = []; % Handle of right_array.
+ArrowsHdl1 = []; % Handle of up_arrow.
+ArrowsHdl2 = []; % Handle of left_arrow.
+ArrowsHdl3 = []; % Handle of down_arrow.
+ArrowsHdl4 = []; % Handle of right_arrow.
 
 % Plot Lines.
 ReportLineUHdl1 = []; % Handle of user control on phase axes.
@@ -820,43 +820,15 @@ end
         % Initialization of third plot.
         ReportLineUHdl3 = plot(ReportSbptHdl3, 0, 0, 'Color','r');
         ReportLineBHdl3 = plot(ReportSbptHdl3, 0, 0, 'Color','g');
-        
-%         % Initialization of fourth plot.
-%         ReportLineUHdl4 = plot(ReportSbptHdl4, 0, 0, 'Color','r', 'LineStyle', 'none', 'Marker', 'o');
-%         ReportLineBHdl4 = plot(ReportSbptHdl4, 0, 0, 'Color','g', 'LineStyle', 'none', 'Marker', 'o');
-%         % Initialization of fifth plot.
-%         ReportLineUHdl5 = plot(ReportSbptHdl5, 0, 0, 'Color','r', 'LineStyle', 'none', 'Marker', 'o');
-%         ReportLineBHdl5 = plot(ReportSbptHdl5, 0, 0, 'Color','g', 'LineStyle', 'none', 'Marker', 'o');
         % Initialization of fourth plot.
         ReportLineUHdl4 = plot(ReportSbptHdl4, 0, 0, 'Color','r');
         ReportLineBHdl4 = plot(ReportSbptHdl4, 0, 0, 'Color','g');
         % Initialization of fifth plot.
         ReportLineUHdl5 = plot(ReportSbptHdl5, 0, 0, 'Color','r');
         ReportLineBHdl5 = plot(ReportSbptHdl5, 0, 0, 'Color','g');
-
-%         % Legends.
-%         ReportLegendHDL1 = legend(ReportSbptHdl1, 'Player', 'Yuri Gagarin');      
-%         ReportLegendHDL2 = legend(ReportSbptHdl2, 'Player', 'Yuri Gagarin');
-%         ReportLegendHDL3 = legend(ReportSbptHdl3, 'Player', 'Yuri Gagarin');
-%         ReportLegendHDL4 = legend(ReportSbptHdl4, 'Player', 'Yuri Gagarin');
-%         ReportLegendHDL5 = legend(ReportSbptHdl5, 'Player', 'Yuri Gagarin');  
-%         
-%         % Customization for legends.
-%         if ~verLessThan('matlab', '9.5.0.944444')
-%             set(ReportLegendHDL1, 'AutoUpdate', 'off');
-%             set(ReportLegendHDL2, 'AutoUpdate', 'off');
-%             set(ReportLegendHDL3, 'AutoUpdate', 'off');
-%             set(ReportLegendHDL4, 'AutoUpdate', 'off');
-%             set(ReportLegendHDL5, 'AutoUpdate', 'off');
-%         end
-% 
-%         % For optimization.
-%         delete(ReportLegendHDL1);
-%         delete(ReportLegendHDL2);
-%         delete(ReportLegendHDL3);
-%         delete(ReportLegendHDL4);
-%         delete(ReportLegendHDL5);
-       
+        
+        % Legend objects will be initialized when the Report window
+        % is activated (for speed purposes).
     end
 
 %% |GammaLines() function.|
@@ -949,7 +921,7 @@ end
 %% *Initialization of function wrappers.*
 % Function wrappers for various version of MATLAB.
 
-%% _Verssion>=2018._
+%% _Version>=2018._
 
 % Update of LineHdl.
     function NewLineUpdate(k)
@@ -977,7 +949,7 @@ end
         pause(0.004);   % WARNING!
     end
 
-%% _Verssion<2018._
+%% _Version<2018._
 
 % Update of LineHdl.
     function OldLineUpdate(k)
@@ -1249,18 +1221,15 @@ end
     function PrintReport
         set(ReportFigureHdl, 'Visible', 'on'); % Show report window.
         
+        % It is correct to do the initialization of the Legend objects
+        % here, as it is more optimal in terms of performance.
+        
         % Update of legends.
         ReportLegendHDL1 = legend(ReportSbptHdl1, 'Player', 'Yuri Gagarin');      
         ReportLegendHDL2 = legend(ReportSbptHdl2, 'Player', 'Yuri Gagarin');
         ReportLegendHDL3 = legend(ReportSbptHdl3, 'Player', 'Yuri Gagarin');
         ReportLegendHDL4 = legend(ReportSbptHdl4, 'Player', 'Yuri Gagarin');
         ReportLegendHDL5 = legend(ReportSbptHdl5, 'Player', 'Yuri Gagarin');
-
-%         ReportLegendHDL1 = legend(ReportSbptHdl1, 'Neural Net', 'Optimal Control');
-%         ReportLegendHDL2 = legend(ReportSbptHdl2, 'Neural Net', 'Optimal Control');
-%         ReportLegendHDL3 = legend(ReportSbptHdl3, 'Neural Net', 'Optimal Control');
-%         ReportLegendHDL4 = legend(ReportSbptHdl4, 'Neural Net', 'Optimal Control');
-%         ReportLegendHDL5 = legend(ReportSbptHdl5, 'Neural Net', 'Optimal Control');
 
         % Customization for legends.
         if ~verLessThan('matlab', '9.5.0.944444')
